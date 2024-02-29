@@ -52,8 +52,8 @@ namespace Example
     void MyFoo::printDetailedMemberInfo() //function name contains a verb!!!
     { 
         // 2b) explicitly using 'this' inside this member function.
-        std::cout << "MyFoo returnValue(): " << this->returnValue() << " and MyFoo memberVariable: " << this->memberVariable << std::endl; 
-    }  
+        std::cout << "MyFoo returnValue(): " << this->returnValue() << " and MyFoo memberVariable: " << this->memberVariable << std::endl;
+    }
     
     int main()
     {
@@ -61,7 +61,7 @@ namespace Example
         MyFoo mf;
         
         // 1) a std::cout statement that uses mf's member variables
-        std::cout << "mf returnValue(): " << mf.returnValue() << " and mf memberVariable: " << mf.memberVariable << std::endl; 
+        std::cout << "mf returnValue(): " << mf.returnValue() << " and mf memberVariable: " << mf.memberVariable << std::endl;
         
         // 2c) calling mf's member function.  the member function's body is almost identical to the cout statement above.
         mf.printDetailedMemberInfo();
@@ -105,12 +105,14 @@ struct Synthesizer
         void releaseKey(float releaseTime, bool usesADSR = true);
         int getNumOfKeysPressed(int numOfMidiEvents);
         void changeVelocity(int midiValue);
+        void printKeysValue();
     };
 
     void makeSound(Keyboard keyboard);
     void showPatchParameters();
     float changeVoltage(float amountOfVoltage, Keyboard keyboard);
     void changeTimbre(int filterSweep, int rezSweep);
+    void printThisValue();
 
     Keyboard eventsOnSynth;
 };
@@ -202,6 +204,16 @@ void Synthesizer::changeTimbre(int filterSweep, int rezSweep)
         ++acid;
         std::cout << "Come on you runts, let's have some Aphex acid!" << std::endl;
     }
+}
+
+void Synthesizer::printThisValue()
+{
+    std::cout << "Amount of knobs: " << this->numberofKnobs << std::endl;
+}
+
+void Synthesizer::Keyboard::printKeysValue()
+{
+    std::cout << "Amount of Black Keys: " << this->numOfBlackKeys << std::endl;
 }
 /*
  copied UDT 2:
@@ -500,12 +512,18 @@ int main()
     instantiatedSynthesizer.showPatchParameters();
     instantiatedSynthesizer.changeVoltage(55.5, instantiatedSynthesizer.eventsOnSynth);
     instantiatedSynthesizer.changeTimbre(0, 1);
+    instantiatedSynthesizer.printThisValue();
+
+    std::cout << "Amount of knobs: " << instantiatedSynthesizer.numberofKnobs << std::endl;
 
     Synthesizer::Keyboard boardWithKeys;
     boardWithKeys.pushKey(127.f, 10.f, true);
     boardWithKeys.releaseKey(200.f, true);
     boardWithKeys.getNumOfKeysPressed(127);
     boardWithKeys.changeVelocity(127);
+    boardWithKeys.printKeysValue();
+
+    std::cout << "Amount of Black Keys: " << boardWithKeys.numOfBlackKeys << std::endl;
 
     Restaurant placeToEat;
     placeToEat.makeFood(placeToEat.patronsBeingServed);
@@ -524,6 +542,8 @@ int main()
     localBank.collectMoney(258.22);
     localBank.wireMoney(300.f);
     localBank.convertToCanadianDollar(1.f);
+
+    std::cout << "Is localBank's member var 'amountOfMoneyInVault' equal to 0? " << (localBank.amountOfMoneyInVault == 0.0 ? "Yes" : "No") << "\n";
 
     EffectsRack outboardFX;
     outboardFX.cueAnEffect(0, 0, 0);
