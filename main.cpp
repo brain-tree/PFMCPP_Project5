@@ -208,12 +208,12 @@ void Synthesizer::changeTimbre(int filterSweep, int rezSweep)
 
 void Synthesizer::printThisValue()
 {
-    std::cout << "Amount of knobs: " << this->numberofKnobs << std::endl;
+    std::cout << "MF Amount of knobs: " << this->numberofKnobs << std::endl;
 }
 
 void Synthesizer::Keyboard::printKeysValue()
 {
-    std::cout << "Amount of Black Keys: " << this->numOfBlackKeys << std::endl;
+    std::cout << "MF Amount of Black Keys: " << this->numOfBlackKeys << std::endl;
 }
 /*
  copied UDT 2:
@@ -243,12 +243,14 @@ struct Restaurant
         void printOrderTicket(int orderNumber, bool hasSpecialInstructions = false);
         double annualRevenue(double annualProfit);
         void replaceTheOven(int newOven, int oldOven);
+        void printKitchenValue();
     };
 
     void makeFood(Kitchen kitchen);
     void serveDiners(Kitchen kitchen);
     float chargeMoney(float moneyOfMeal);
     void cleanTheKitchen(int amountOfAmmonia, int numOfSponges);
+    void printRestValue();
 
     Kitchen patronsBeingServed;
 };
@@ -345,6 +347,16 @@ void Restaurant::cleanTheKitchen(int amountOfAmmonia, int numOfSponges)
             break;
     }
 }
+
+void Restaurant::printRestValue()
+{
+    std::cout << "MF Amount of menu items: " << this->amountOfMenuItems << std::endl;
+}
+
+void Restaurant::Kitchen::printKitchenValue()
+{
+    std::cout << "MF Order name: " << this->orderName << std::endl;
+}
 /*
  copied UDT 3:
  */
@@ -362,6 +374,7 @@ struct Bank
     void serviceClient();
     float wireMoney(float amountOfMoneyWired);
     float convertToCanadianDollar(float dollarValue);
+    void thisBankValue();
 };
 
 Bank::Bank()
@@ -408,6 +421,11 @@ float Bank::convertToCanadianDollar(float dollarValue)
     }
     return conversionValue;
 }
+
+void Bank::thisBankValue()
+{
+    std::cout << "MF How many guards do we have? " << this->amountOfArmedGuards << std::endl;
+}
 /*
  new UDT 4:
  with 2 member functions
@@ -419,9 +437,11 @@ struct EffectsRack
     Synthesizer subModule;
     Synthesizer randomEffect;
     Synthesizer::Keyboard weightedKeys;
+    int amountOfEffects = 10;
 
     void cueAnEffect(int parameter1, int parameter2, float parameter3);
     void chooseAnEffect(int menuDive);
+    void printRackValue();
 };
 
 EffectsRack::EffectsRack()
@@ -450,6 +470,11 @@ void EffectsRack::chooseAnEffect(int olympicMenuDive)
     weightedKeys.changeVelocity(olympicMenuDive);
     effectsRack.randomEffect.numberofKnobs = 15;
 }
+
+void EffectsRack::printRackValue()
+{
+    std::cout << "MF Amount of audio effects processors: " << this->amountOfEffects << std::endl;
+}
 /*
  new UDT 5:
  with 2 member functions
@@ -461,9 +486,11 @@ struct DiningRoom
     Restaurant table;
     Restaurant counter;
     Restaurant::Kitchen foyer;
+    int amountOfSeatedCustomers = 20;
 
     void seatACustomer();
     void counterSeating(float stools);
+    void printCustomersSeated();
 };
 
 DiningRoom::DiningRoom()
@@ -490,6 +517,11 @@ void DiningRoom::counterSeating(float whichStool)
     foyer.gallonsOfVegOil = 10;
 }
 
+void DiningRoom::printCustomersSeated()
+{
+    std::cout << "MF How many customers have been seated? " << this->amountOfSeatedCustomers << std::endl;
+}
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
@@ -514,7 +546,7 @@ int main()
     instantiatedSynthesizer.changeTimbre(0, 1);
     instantiatedSynthesizer.printThisValue();
 
-    std::cout << "Amount of knobs: " << instantiatedSynthesizer.numberofKnobs << std::endl;
+    std::cout << "main() Amount of knobs: " << instantiatedSynthesizer.numberofKnobs << std::endl;
 
     Synthesizer::Keyboard boardWithKeys;
     boardWithKeys.pushKey(127.f, 10.f, true);
@@ -523,35 +555,48 @@ int main()
     boardWithKeys.changeVelocity(127);
     boardWithKeys.printKeysValue();
 
-    std::cout << "Amount of Black Keys: " << boardWithKeys.numOfBlackKeys << std::endl;
+    std::cout << "main() Amount of Black Keys: " << boardWithKeys.numOfBlackKeys << std::endl;
 
     Restaurant placeToEat;
     placeToEat.makeFood(placeToEat.patronsBeingServed);
     placeToEat.serveDiners(placeToEat.patronsBeingServed);
     placeToEat.chargeMoney(20);
     placeToEat.cleanTheKitchen(0, 0);
+    placeToEat.printRestValue();
+
+    std::cout << "main() Amount of menu items: " << placeToEat.amountOfMenuItems << std::endl;
 
     Restaurant::Kitchen cookArea;
     cookArea.fillFryerWithOil(50.75, 2.0, false);
     cookArea.printOrderTicket(5, false);
     cookArea.annualRevenue(359000.52);
     cookArea.replaceTheOven(2, 1);
+    cookArea.printKitchenValue();
+
+    std::cout << "main() Order name: " << cookArea.orderName << std::endl;
 
     Bank localBank;
     localBank.serviceClient();
     localBank.collectMoney(258.22);
     localBank.wireMoney(300.f);
     localBank.convertToCanadianDollar(1.f);
+    localBank.thisBankValue();
 
-    std::cout << "Is localBank's member var 'amountOfMoneyInVault' equal to 0? " << (localBank.amountOfMoneyInVault == 0.0 ? "Yes" : "No") << "\n";
+    std::cout << "main() How many guards do we have? " << localBank.amountOfArmedGuards << std::endl;
 
     EffectsRack outboardFX;
     outboardFX.cueAnEffect(0, 0, 0);
     outboardFX.chooseAnEffect(0);
+    outboardFX.printRackValue();
+
+    std::cout << "main() Amount of audio effects processors: " << outboardFX.amountOfEffects << std::endl;
 
     DiningRoom roomForEating;
     roomForEating.seatACustomer();
     roomForEating.counterSeating(1);
+    roomForEating.printCustomersSeated();
+
+    std::cout << "main() How many customers have been seated? " << roomForEating.amountOfSeatedCustomers << std::endl;
     
     std::cout << "good to go!" << std::endl;
 }
