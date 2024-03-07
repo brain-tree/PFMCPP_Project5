@@ -91,7 +91,7 @@ struct Synthesizer
     Synthesizer();
     ~Synthesizer();
     int numberOfOscillators = 3;
-    int numberofKnobs = 15;
+    int numberOfKnobs = 15;
     float amountOfVoltagePerOctave = 0.5f;
     int numberOfKeys = 88;
     int numberOfDigitalDisplays = 1;
@@ -239,7 +239,7 @@ void Synthesizer::changeTimbre(int filterSweep, int rezSweep)
 
 void Synthesizer::printThisValue()
 {
-    std::cout << "MF Amount of knobs: " << this->numberofKnobs << std::endl;
+    std::cout << "MF Amount of knobs: " << this->numberOfKnobs << std::endl;
 }
 
 void Synthesizer::Keyboard::printKeysValue()
@@ -551,7 +551,7 @@ void EffectsRack::chooseAnEffect(int olympicMenuDive)
     EffectsRack effectsRack;
     effectsRack.subModule.numberOfOscillators = 3;
     weightedKeys.changeVelocity(olympicMenuDive);
-    effectsRack.randomEffect.numberofKnobs = 15;
+    effectsRack.randomEffect.numberOfKnobs = 15;
 }
 
 void EffectsRack::printRackValue()
@@ -635,23 +635,36 @@ void DiningRoom::printCustomersSeated()
 #include <iostream>
 int main()
 {
-    Synthesizer instantiatedSynthesizer;
-    instantiatedSynthesizer.makeSound(instantiatedSynthesizer.eventsOnSynth);
-    instantiatedSynthesizer.showPatchParameters();
-    instantiatedSynthesizer.changeVoltage(55.5, instantiatedSynthesizer.eventsOnSynth);
-    instantiatedSynthesizer.changeTimbre(0, 1);
-    instantiatedSynthesizer.printThisValue();
+    WrapperSynthesizer wrapperSynth(new Synthesizer());
 
-    std::cout << "main() Amount of knobs: " << instantiatedSynthesizer.numberofKnobs << std::endl;
+    void makeSound(Synthesizer& instantiatedSynthesizer);
+//    instantiatedSynthesizer.makeSound(instantiatedSynthesizer.eventsOnSynth);
+    void showPatchParameters(Synthesizer& instantiatedSynthesizer);
+//    instantiatedSynthesizer.showPatchParameters();
+    float changeVoltage(Synthesizer& instantiatedSynthesizer);
+//    instantiatedSynthesizer.changeVoltage(55.5, instantiatedSynthesizer.eventsOnSynth);
+    void changeTimbre(Synthesizer& instantiatedSynthesizer);
+//    instantiatedSynthesizer.changeTimbre(0, 1);
+    void printThisValue(Synthesizer& instantiatedSynthesizer);
+//    instantiatedSynthesizer.printThisValue();
 
-    Synthesizer::Keyboard boardWithKeys;
-    boardWithKeys.pushKey(127.f, 10.f, true);
-    boardWithKeys.releaseKey(200.f, true);
-    boardWithKeys.getNumOfKeysPressed(127);
-    boardWithKeys.changeVelocity(127);
-    boardWithKeys.printKeysValue();
+    std::cout << "main() Amount of knobs: " << wrapperSynth.pointerToSynthesizer->numberOfKnobs << "\n";
 
-    std::cout << "main() Amount of Black Keys: " << boardWithKeys.numOfBlackKeys << std::endl;
+//    Synthesizer::Keyboard boardWithKeys;
+    void pushKey(Synthesizer& instantiatedSynthesizer);
+//    boardWithKeys.pushKey(127.f, 10.f, true);
+    void releaseKey(Synthesizer& instantiatedSynthesizer);
+//    boardWithKeys.releaseKey(200.f, true);
+    int getNumOfKeysPressed(Synthesizer& instantiatedSynthesizer);
+//    boardWithKeys.getNumOfKeysPressed(127);
+    void changeVelocity(Synthesizer& instantiatedSynthesizer);
+//    boardWithKeys.changeVelocity(127);
+    void printKeysValue(Synthesizer& instantiatedSynthesizer);
+//    boardWithKeys.printKeysValue();
+
+    WrapperKeyboard wrapperKeys(new Synthesizer::Keyboard());
+    
+    std::cout << "main() Amount of Black Keys: " << wrapperKeys.pointerToKeyboard->numOfBlackKeys << "\n";
 
     Restaurant placeToEat;
     placeToEat.makeFood(placeToEat.patronsBeingServed);
