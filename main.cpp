@@ -84,6 +84,7 @@ void Axe::aConstMemberFunction() const { }
  copied UDT 1:
  */
 #include <iostream>
+#include "LeakedObjectDetector.h"
 
 struct Synthesizer
 {
@@ -110,6 +111,8 @@ struct Synthesizer
         int getNumOfKeysPressed(int numOfMidiEvents);
         void changeVelocity(int midiValue);
         void printKeysValue();
+
+        JUCE_LEAK_DETECTOR(Keyboard)
     };
 
     void makeSound(Keyboard keyboard);
@@ -119,6 +122,30 @@ struct Synthesizer
     void printThisValue();
 
     Keyboard eventsOnSynth;
+
+    JUCE_LEAK_DETECTOR(Synthesizer)
+};
+
+struct WrapperSynthesizer
+{
+    WrapperSynthesizer(Synthesizer* synthptr) : pointerToSynthesizer(synthptr) {}
+    ~WrapperSynthesizer()
+    {
+        delete pointerToSynthesizer;
+    }
+
+    Synthesizer* pointerToSynthesizer = nullptr;
+};
+
+struct WrapperKeyboard
+{
+    WrapperKeyboard(Synthesizer::Keyboard* keysptr) : pointerToKeyboard(keysptr) {}
+    ~WrapperKeyboard()
+    {
+        delete pointerToKeyboard;
+    }
+
+    Synthesizer::Keyboard* pointerToKeyboard = nullptr;
 };
 
 Synthesizer::Synthesizer()
@@ -248,6 +275,8 @@ struct Restaurant
         double annualRevenue(double annualProfit);
         void replaceTheOven(int newOven, int oldOven);
         void printKitchenValue();
+
+        JUCE_LEAK_DETECTOR(Kitchen)
     };
 
     void makeFood(Kitchen kitchen);
@@ -257,6 +286,30 @@ struct Restaurant
     void printRestValue();
 
     Kitchen patronsBeingServed;
+
+    JUCE_LEAK_DETECTOR(Restaurant)
+};
+
+struct WrapperRestaurant
+{
+    WrapperRestaurant(Restaurant* restptr) : pointerToRestaurant(restptr) {}
+    ~WrapperRestaurant()
+    {
+        delete pointerToRestaurant;
+    }
+
+    Restaurant* pointerToRestaurant = nullptr;
+};
+
+struct WrapperKitchen
+{
+    WrapperKitchen(Restaurant::Kitchen* kitptr) : pointerToKitchen(kitptr) {}
+    ~WrapperKitchen()
+    {
+        delete pointerToKitchen;
+    }
+
+    Restaurant::Kitchen* pointerToKitchen = nullptr;
 };
 
 Restaurant::Restaurant()
@@ -379,6 +432,19 @@ struct Bank
     float wireMoney(float amountOfMoneyWired);
     float convertToCanadianDollar(float dollarValue);
     void thisBankValue();
+
+    JUCE_LEAK_DETECTOR(Bank)
+};
+
+struct WrapperBank
+{
+    WrapperBank(Bank* bankptr) : pointerToBank(bankptr) {}
+    ~WrapperBank()
+    {
+        delete pointerToBank;
+    }
+
+    Bank* pointerToBank = nullptr;
 };
 
 Bank::Bank()
@@ -446,6 +512,19 @@ struct EffectsRack
     void cueAnEffect(int parameter1, int parameter2, float parameter3);
     void chooseAnEffect(int menuDive);
     void printRackValue();
+
+    JUCE_LEAK_DETECTOR(EffectsRack)
+};
+
+struct WrapperEffectsRack
+{
+    WrapperEffectsRack(EffectsRack* fxptr) : pointerToEffectsRack(fxptr) {}
+    ~WrapperEffectsRack()
+    {
+        delete pointerToEffectsRack;
+    }
+
+    EffectsRack* pointerToEffectsRack = nullptr;
 };
 
 EffectsRack::EffectsRack()
@@ -495,6 +574,19 @@ struct DiningRoom
     void seatACustomer();
     void counterSeating(float stools);
     void printCustomersSeated();
+
+    JUCE_LEAK_DETECTOR(DiningRoom)
+};
+
+struct WrapperDiningRoom
+{
+    WrapperDiningRoom(DiningRoom* drptr) : pointerToDiningRoom(drptr) {}
+    ~WrapperDiningRoom()
+    {
+        delete pointerToDiningRoom;
+    }
+
+    DiningRoom* pointerToDiningRoom = nullptr;
 };
 
 DiningRoom::DiningRoom()
