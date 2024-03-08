@@ -636,62 +636,62 @@ void DiningRoom::printCustomersSeated()
 int main()
 {
     WrapperSynthesizer wrapperSynth(new Synthesizer());
-    void makeSound(Synthesizer& instantiatedSynthesizer);
-    void showPatchParameters(Synthesizer& instantiatedSynthesizer);
+    void makeSound(const Synthesizer& instantiatedSynthesizer);
+    void showPatchParameters(const Synthesizer& instantiatedSynthesizer);
     float changeVoltage(Synthesizer& instantiatedSynthesizer);
-    void changeTimbre(Synthesizer& instantiatedSynthesizer);
-    void printThisValue(Synthesizer& instantiatedSynthesizer);
+    void changeTimbre(const Synthesizer& instantiatedSynthesizer);
+    void printThisValue(const Synthesizer& instantiatedSynthesizer);
 
     std::cout << "main() Amount of knobs: " << wrapperSynth.pointerToSynthesizer->numberOfKnobs << "\n";
 
-    void pushKey(Synthesizer& instantiatedSynthesizer);
-    void releaseKey(Synthesizer& instantiatedSynthesizer);
+    void pushKey(const Synthesizer& instantiatedSynthesizer);
+    void releaseKey(const Synthesizer& instantiatedSynthesizer);
     int getNumOfKeysPressed(Synthesizer& instantiatedSynthesizer);
-    void changeVelocity(Synthesizer& instantiatedSynthesizer);
-    void printKeysValue(Synthesizer& instantiatedSynthesizer);
+    void changeVelocity(const Synthesizer& instantiatedSynthesizer);
+    void printKeysValue(const Synthesizer& instantiatedSynthesizer);
 
     WrapperKeyboard wrapperKeys(new Synthesizer::Keyboard());
     
     std::cout << "main() Amount of Black Keys: " << wrapperKeys.pointerToKeyboard->numOfBlackKeys << "\n";
 
     WrapperRestaurant wrapperRest(new Restaurant());
-    void makeFood(Restaurant& placeToEat);
-    void serveDiners(Restaurant& placeToEat);
+    void makeFood(const Restaurant& placeToEat);
+    void serveDiners(const Restaurant& placeToEat);
     float chargeMoney(Restaurant& placeToEat);
-    void cleanTheKitchen(Restaurant& placeToEat);
-    void printRestValue(Restaurant& placeToEat);
+    void cleanTheKitchen(const Restaurant& placeToEat);
+    void printRestValue(const Restaurant& placeToEat);
 
     std::cout << "main() Amount of menu items: " << wrapperRest.pointerToRestaurant->amountOfMenuItems << "\n";
 
     WrapperKitchen wrapperKit(new Restaurant::Kitchen());
-    void fillFryerWithOil(Restaurant& placeToEat);
-    void printOrderTicket(Restaurant& placeToEat);
+    void fillFryerWithOil(const Restaurant& placeToEat);
+    void printOrderTicket(const Restaurant& placeToEat);
     double annualRevenue(Restaurant& placeToEat);
-    void replaceTheOven(Restaurant& placeToEat);
-    void printKitchenValue(Restaurant& placeToEat);
+    void replaceTheOven(const Restaurant& placeToEat);
+    void printKitchenValue(const Restaurant& placeToEat);
 
     std::cout << "main() Order name: " << wrapperKit.pointerToKitchen->orderName << "\n";
 
     WrapperBank wrapperBank(new Bank());
-    void serviceClient(Bank& localBank);
+    void serviceClient(const Bank& localBank);
     double collectMoney(Bank& localBank);
     float wireMoney(Bank& localBank);
     float convertToCanadianDollar(Bank& localBank);
-    void thisBankValue(Bank& localBank);
+    void thisBankValue(const Bank& localBank);
 
     std::cout << "main() How many guards do we have? " << wrapperBank.pointerToBank->amountOfArmedGuards << "\n";
 
     WrapperEffectsRack wrapperFX(new EffectsRack());
-    void cueAnEffect(EffectsRack& outboardFX);
-    void chooseAnEffect(EffectsRack& outboardFX);
-    void printRackValue(EffectsRack& outboardFX);
+    void cueAnEffect(const EffectsRack& outboardFX);
+    void chooseAnEffect(const EffectsRack& outboardFX);
+    void printRackValue(const EffectsRack& outboardFX);
 
     std::cout << "main() Amount of audio effects processors: " << wrapperFX.pointerToEffectsRack->amountOfEffects << "\n";
 
     WrapperDiningRoom wrapperDine(new DiningRoom());
-    void seatACustomer(DiningRoom& roomForEating);
-    void counterSeating(DiningRoom& roomForEating);
-    void printCustomersSeated(DiningRoom& roomForEating);
+    void seatACustomer(const DiningRoom& roomForEating);
+    void counterSeating(const DiningRoom& roomForEating);
+    void printCustomersSeated(const DiningRoom& roomForEating);
 
     std::cout << "main() How many customers have been seated? " << wrapperDine.pointerToDiningRoom->amountOfSeatedCustomers << "\n";
     
