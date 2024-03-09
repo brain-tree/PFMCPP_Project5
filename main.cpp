@@ -636,64 +636,66 @@ void DiningRoom::printCustomersSeated()
 int main()
 {
     WrapperSynthesizer wrapperSynth(new Synthesizer());
-    void makeSound(const Synthesizer& instantiatedSynthesizer);
-    void showPatchParameters(const Synthesizer& instantiatedSynthesizer);
-    float changeVoltage(Synthesizer& instantiatedSynthesizer);
-    void changeTimbre(const Synthesizer& instantiatedSynthesizer);
-    void printThisValue(const Synthesizer& instantiatedSynthesizer);
+    wrapperSynth.pointerToSynthesizer->makeSound(wrapperSynth.pointerToSynthesizer->eventsOnSynth);
+    wrapperSynth.pointerToSynthesizer->showPatchParameters();
+    wrapperSynth.pointerToSynthesizer->changeVoltage(55.5, wrapperSynth.pointerToSynthesizer->eventsOnSynth);
+    wrapperSynth.pointerToSynthesizer->changeTimbre(0, 1);
+    wrapperSynth.pointerToSynthesizer->printThisValue();
 
-    std::cout << "main() Amount of knobs: " << wrapperSynth.pointerToSynthesizer->numberOfKnobs << "\n";
+    std::cout << "main() Amount of knobs: " << wrapperSynth.pointerToSynthesizer->numberOfKnobs << std::endl;
 
-    void pushKey(const Synthesizer& instantiatedSynthesizer);
-    void releaseKey(const Synthesizer& instantiatedSynthesizer);
-    int getNumOfKeysPressed(Synthesizer& instantiatedSynthesizer);
-    void changeVelocity(const Synthesizer& instantiatedSynthesizer);
-    void printKeysValue(const Synthesizer& instantiatedSynthesizer);
+    Synthesizer::Keyboard boardWithKeys;
+    WrapperKeyboard wapperKeys(new Synthesizer::Keyboard());
+    wapperKeys.pointerToKeyboard->pushKey(127.f, 10.f, true);
+    wapperKeys.pointerToKeyboard->releaseKey(200.f, true);
+    wapperKeys.pointerToKeyboard->getNumOfKeysPressed(127);
+    wapperKeys.pointerToKeyboard->changeVelocity(127);
+    wapperKeys.pointerToKeyboard->printKeysValue();
 
-    WrapperKeyboard wrapperKeys(new Synthesizer::Keyboard());
-    
-    std::cout << "main() Amount of Black Keys: " << wrapperKeys.pointerToKeyboard->numOfBlackKeys << "\n";
+    std::cout << "main() Amount of Black Keys: " << boardWithKeys.numOfBlackKeys << std::endl;
 
     WrapperRestaurant wrapperRest(new Restaurant());
-    void makeFood(const Restaurant& placeToEat);
-    void serveDiners(const Restaurant& placeToEat);
-    float chargeMoney(Restaurant& placeToEat);
-    void cleanTheKitchen(const Restaurant& placeToEat);
-    void printRestValue(const Restaurant& placeToEat);
+    wrapperRest.pointerToRestaurant->makeFood(wrapperRest.pointerToRestaurant->patronsBeingServed);
+    wrapperRest.pointerToRestaurant->serveDiners(wrapperRest.pointerToRestaurant->patronsBeingServed);
+    wrapperRest.pointerToRestaurant->chargeMoney(20);
+    wrapperRest.pointerToRestaurant->cleanTheKitchen(0, 0);
+    wrapperRest.pointerToRestaurant->printRestValue();
 
-    std::cout << "main() Amount of menu items: " << wrapperRest.pointerToRestaurant->amountOfMenuItems << "\n";
+    std::cout << "main() Amount of menu items: " << wrapperRest.pointerToRestaurant->amountOfMenuItems << std::endl;
 
     WrapperKitchen wrapperKit(new Restaurant::Kitchen());
-    void fillFryerWithOil(const Restaurant& placeToEat);
-    void printOrderTicket(const Restaurant& placeToEat);
-    double annualRevenue(Restaurant& placeToEat);
-    void replaceTheOven(const Restaurant& placeToEat);
-    void printKitchenValue(const Restaurant& placeToEat);
+    wrapperKit.pointerToKitchen->fillFryerWithOil(50.75, 2.0, false);
+    wrapperKit.pointerToKitchen->printOrderTicket(5, false);
+    wrapperKit.pointerToKitchen->annualRevenue(359000.52);
+    wrapperKit.pointerToKitchen->replaceTheOven(2, 1);
+    wrapperKit.pointerToKitchen->printKitchenValue();
 
-    std::cout << "main() Order name: " << wrapperKit.pointerToKitchen->orderName << "\n";
+    std::cout << "main() Order name: " << wrapperKit.pointerToKitchen->orderName << std::endl;
 
+//    Bank localBank;
     WrapperBank wrapperBank(new Bank());
-    void serviceClient(const Bank& localBank);
-    double collectMoney(Bank& localBank);
-    float wireMoney(Bank& localBank);
-    float convertToCanadianDollar(Bank& localBank);
-    void thisBankValue(const Bank& localBank);
+    wrapperBank.pointerToBank->serviceClient();
+    wrapperBank.pointerToBank->collectMoney(258.22);
+    wrapperBank.pointerToBank->wireMoney(300.f);
+    wrapperBank.pointerToBank->convertToCanadianDollar(1.f);
+    wrapperBank.pointerToBank->thisBankValue();
 
-    std::cout << "main() How many guards do we have? " << wrapperBank.pointerToBank->amountOfArmedGuards << "\n";
+    std::cout << "main() How many guards do we have? " << wrapperBank.pointerToBank->amountOfArmedGuards << std::endl;
 
+    EffectsRack outboardFX;
     WrapperEffectsRack wrapperFX(new EffectsRack());
-    void cueAnEffect(const EffectsRack& outboardFX);
-    void chooseAnEffect(const EffectsRack& outboardFX);
-    void printRackValue(const EffectsRack& outboardFX);
+    wrapperFX.pointerToEffectsRack->cueAnEffect(0, 0, 0);
+    wrapperFX.pointerToEffectsRack->chooseAnEffect(0);
+    wrapperFX.pointerToEffectsRack->printRackValue();
 
-    std::cout << "main() Amount of audio effects processors: " << wrapperFX.pointerToEffectsRack->amountOfEffects << "\n";
+    std::cout << "main() Amount of audio effects processors: " << wrapperFX.pointerToEffectsRack->amountOfEffects << std::endl;
 
-    WrapperDiningRoom wrapperDine(new DiningRoom());
-    void seatACustomer(const DiningRoom& roomForEating);
-    void counterSeating(const DiningRoom& roomForEating);
-    void printCustomersSeated(const DiningRoom& roomForEating);
+    WrapperDiningRoom wrapperDiningRoom(new DiningRoom());
+    wrapperDiningRoom.pointerToDiningRoom->seatACustomer();
+    wrapperDiningRoom.pointerToDiningRoom->counterSeating(1);
+    wrapperDiningRoom.pointerToDiningRoom->printCustomersSeated();
 
-    std::cout << "main() How many customers have been seated? " << wrapperDine.pointerToDiningRoom->amountOfSeatedCustomers << "\n";
-    
+    std::cout << "main() How many customers have been seated? " << wrapperDiningRoom.pointerToDiningRoom->amountOfSeatedCustomers << std::endl;
+
     std::cout << "good to go!" << std::endl;
 }
