@@ -84,13 +84,14 @@ void Axe::aConstMemberFunction() const { }
  copied UDT 1:
  */
 #include <iostream>
+#include "LeakedObjectDetector.h"
 
 struct Synthesizer
 {
     Synthesizer();
     ~Synthesizer();
     int numberOfOscillators = 3;
-    int numberofKnobs = 15;
+    int numberOfKnobs = 15;
     float amountOfVoltagePerOctave = 0.5f;
     int numberOfKeys = 88;
     int numberOfDigitalDisplays = 1;
@@ -110,6 +111,8 @@ struct Synthesizer
         int getNumOfKeysPressed(int numOfMidiEvents);
         void changeVelocity(int midiValue);
         void printKeysValue();
+
+        JUCE_LEAK_DETECTOR(Keyboard)
     };
 
     void makeSound(Keyboard keyboard);
@@ -119,6 +122,30 @@ struct Synthesizer
     void printThisValue();
 
     Keyboard eventsOnSynth;
+
+    JUCE_LEAK_DETECTOR(Synthesizer)
+};
+
+struct WrapperSynthesizer
+{
+    WrapperSynthesizer(Synthesizer* synthptr) : pointerToSynthesizer(synthptr) {}
+    ~WrapperSynthesizer()
+    {
+        delete pointerToSynthesizer;
+    }
+
+    Synthesizer* pointerToSynthesizer = nullptr;
+};
+
+struct WrapperKeyboard
+{
+    WrapperKeyboard(Synthesizer::Keyboard* keysptr) : pointerToKeyboard(keysptr) {}
+    ~WrapperKeyboard()
+    {
+        delete pointerToKeyboard;
+    }
+
+    Synthesizer::Keyboard* pointerToKeyboard = nullptr;
 };
 
 Synthesizer::Synthesizer()
@@ -212,7 +239,7 @@ void Synthesizer::changeTimbre(int filterSweep, int rezSweep)
 
 void Synthesizer::printThisValue()
 {
-    std::cout << "MF Amount of knobs: " << this->numberofKnobs << std::endl;
+    std::cout << "MF Amount of knobs: " << this->numberOfKnobs << std::endl;
 }
 
 void Synthesizer::Keyboard::printKeysValue()
@@ -248,6 +275,8 @@ struct Restaurant
         double annualRevenue(double annualProfit);
         void replaceTheOven(int newOven, int oldOven);
         void printKitchenValue();
+
+        JUCE_LEAK_DETECTOR(Kitchen)
     };
 
     void makeFood(Kitchen kitchen);
@@ -257,6 +286,30 @@ struct Restaurant
     void printRestValue();
 
     Kitchen patronsBeingServed;
+
+    JUCE_LEAK_DETECTOR(Restaurant)
+};
+
+struct WrapperRestaurant
+{
+    WrapperRestaurant(Restaurant* restptr) : pointerToRestaurant(restptr) {}
+    ~WrapperRestaurant()
+    {
+        delete pointerToRestaurant;
+    }
+
+    Restaurant* pointerToRestaurant = nullptr;
+};
+
+struct WrapperKitchen
+{
+    WrapperKitchen(Restaurant::Kitchen* kitptr) : pointerToKitchen(kitptr) {}
+    ~WrapperKitchen()
+    {
+        delete pointerToKitchen;
+    }
+
+    Restaurant::Kitchen* pointerToKitchen = nullptr;
 };
 
 Restaurant::Restaurant()
@@ -379,6 +432,19 @@ struct Bank
     float wireMoney(float amountOfMoneyWired);
     float convertToCanadianDollar(float dollarValue);
     void thisBankValue();
+
+    JUCE_LEAK_DETECTOR(Bank)
+};
+
+struct WrapperBank
+{
+    WrapperBank(Bank* bankptr) : pointerToBank(bankptr) {}
+    ~WrapperBank()
+    {
+        delete pointerToBank;
+    }
+
+    Bank* pointerToBank = nullptr;
 };
 
 Bank::Bank()
@@ -446,6 +512,19 @@ struct EffectsRack
     void cueAnEffect(int parameter1, int parameter2, float parameter3);
     void chooseAnEffect(int menuDive);
     void printRackValue();
+
+    JUCE_LEAK_DETECTOR(EffectsRack)
+};
+
+struct WrapperEffectsRack
+{
+    WrapperEffectsRack(EffectsRack* fxptr) : pointerToEffectsRack(fxptr) {}
+    ~WrapperEffectsRack()
+    {
+        delete pointerToEffectsRack;
+    }
+
+    EffectsRack* pointerToEffectsRack = nullptr;
 };
 
 EffectsRack::EffectsRack()
@@ -472,7 +551,7 @@ void EffectsRack::chooseAnEffect(int olympicMenuDive)
     EffectsRack effectsRack;
     effectsRack.subModule.numberOfOscillators = 3;
     weightedKeys.changeVelocity(olympicMenuDive);
-    effectsRack.randomEffect.numberofKnobs = 15;
+    effectsRack.randomEffect.numberOfKnobs = 15;
 }
 
 void EffectsRack::printRackValue()
@@ -495,6 +574,19 @@ struct DiningRoom
     void seatACustomer();
     void counterSeating(float stools);
     void printCustomersSeated();
+
+    JUCE_LEAK_DETECTOR(DiningRoom)
+};
+
+struct WrapperDiningRoom
+{
+    WrapperDiningRoom(DiningRoom* drptr) : pointerToDiningRoom(drptr) {}
+    ~WrapperDiningRoom()
+    {
+        delete pointerToDiningRoom;
+    }
+
+    DiningRoom* pointerToDiningRoom = nullptr;
 };
 
 DiningRoom::DiningRoom()
@@ -543,64 +635,67 @@ void DiningRoom::printCustomersSeated()
 #include <iostream>
 int main()
 {
-    Synthesizer instantiatedSynthesizer;
-    instantiatedSynthesizer.makeSound(instantiatedSynthesizer.eventsOnSynth);
-    instantiatedSynthesizer.showPatchParameters();
-    instantiatedSynthesizer.changeVoltage(55.5, instantiatedSynthesizer.eventsOnSynth);
-    instantiatedSynthesizer.changeTimbre(0, 1);
-    instantiatedSynthesizer.printThisValue();
+    WrapperSynthesizer wrapperSynth(new Synthesizer());
+    wrapperSynth.pointerToSynthesizer->makeSound(wrapperSynth.pointerToSynthesizer->eventsOnSynth);
+    wrapperSynth.pointerToSynthesizer->showPatchParameters();
+    wrapperSynth.pointerToSynthesizer->changeVoltage(55.5, wrapperSynth.pointerToSynthesizer->eventsOnSynth);
+    wrapperSynth.pointerToSynthesizer->changeTimbre(0, 1);
+    wrapperSynth.pointerToSynthesizer->printThisValue();
 
-    std::cout << "main() Amount of knobs: " << instantiatedSynthesizer.numberofKnobs << std::endl;
+    std::cout << "main() Amount of knobs: " << wrapperSynth.pointerToSynthesizer->numberOfKnobs << std::endl;
 
     Synthesizer::Keyboard boardWithKeys;
-    boardWithKeys.pushKey(127.f, 10.f, true);
-    boardWithKeys.releaseKey(200.f, true);
-    boardWithKeys.getNumOfKeysPressed(127);
-    boardWithKeys.changeVelocity(127);
-    boardWithKeys.printKeysValue();
+    WrapperKeyboard wapperKeys(new Synthesizer::Keyboard());
+    wapperKeys.pointerToKeyboard->pushKey(127.f, 10.f, true);
+    wapperKeys.pointerToKeyboard->releaseKey(200.f, true);
+    wapperKeys.pointerToKeyboard->getNumOfKeysPressed(127);
+    wapperKeys.pointerToKeyboard->changeVelocity(127);
+    wapperKeys.pointerToKeyboard->printKeysValue();
 
     std::cout << "main() Amount of Black Keys: " << boardWithKeys.numOfBlackKeys << std::endl;
 
-    Restaurant placeToEat;
-    placeToEat.makeFood(placeToEat.patronsBeingServed);
-    placeToEat.serveDiners(placeToEat.patronsBeingServed);
-    placeToEat.chargeMoney(20);
-    placeToEat.cleanTheKitchen(0, 0);
-    placeToEat.printRestValue();
+    WrapperRestaurant wrapperRest(new Restaurant());
+    wrapperRest.pointerToRestaurant->makeFood(wrapperRest.pointerToRestaurant->patronsBeingServed);
+    wrapperRest.pointerToRestaurant->serveDiners(wrapperRest.pointerToRestaurant->patronsBeingServed);
+    wrapperRest.pointerToRestaurant->chargeMoney(20);
+    wrapperRest.pointerToRestaurant->cleanTheKitchen(0, 0);
+    wrapperRest.pointerToRestaurant->printRestValue();
 
-    std::cout << "main() Amount of menu items: " << placeToEat.amountOfMenuItems << std::endl;
+    std::cout << "main() Amount of menu items: " << wrapperRest.pointerToRestaurant->amountOfMenuItems << std::endl;
 
-    Restaurant::Kitchen cookArea;
-    cookArea.fillFryerWithOil(50.75, 2.0, false);
-    cookArea.printOrderTicket(5, false);
-    cookArea.annualRevenue(359000.52);
-    cookArea.replaceTheOven(2, 1);
-    cookArea.printKitchenValue();
+    WrapperKitchen wrapperKit(new Restaurant::Kitchen());
+    wrapperKit.pointerToKitchen->fillFryerWithOil(50.75, 2.0, false);
+    wrapperKit.pointerToKitchen->printOrderTicket(5, false);
+    wrapperKit.pointerToKitchen->annualRevenue(359000.52);
+    wrapperKit.pointerToKitchen->replaceTheOven(2, 1);
+    wrapperKit.pointerToKitchen->printKitchenValue();
 
-    std::cout << "main() Order name: " << cookArea.orderName << std::endl;
+    std::cout << "main() Order name: " << wrapperKit.pointerToKitchen->orderName << std::endl;
 
-    Bank localBank;
-    localBank.serviceClient();
-    localBank.collectMoney(258.22);
-    localBank.wireMoney(300.f);
-    localBank.convertToCanadianDollar(1.f);
-    localBank.thisBankValue();
+//    Bank localBank;
+    WrapperBank wrapperBank(new Bank());
+    wrapperBank.pointerToBank->serviceClient();
+    wrapperBank.pointerToBank->collectMoney(258.22);
+    wrapperBank.pointerToBank->wireMoney(300.f);
+    wrapperBank.pointerToBank->convertToCanadianDollar(1.f);
+    wrapperBank.pointerToBank->thisBankValue();
 
-    std::cout << "main() How many guards do we have? " << localBank.amountOfArmedGuards << std::endl;
+    std::cout << "main() How many guards do we have? " << wrapperBank.pointerToBank->amountOfArmedGuards << std::endl;
 
     EffectsRack outboardFX;
-    outboardFX.cueAnEffect(0, 0, 0);
-    outboardFX.chooseAnEffect(0);
-    outboardFX.printRackValue();
+    WrapperEffectsRack wrapperFX(new EffectsRack());
+    wrapperFX.pointerToEffectsRack->cueAnEffect(0, 0, 0);
+    wrapperFX.pointerToEffectsRack->chooseAnEffect(0);
+    wrapperFX.pointerToEffectsRack->printRackValue();
 
-    std::cout << "main() Amount of audio effects processors: " << outboardFX.amountOfEffects << std::endl;
+    std::cout << "main() Amount of audio effects processors: " << wrapperFX.pointerToEffectsRack->amountOfEffects << std::endl;
 
-    DiningRoom roomForEating;
-    roomForEating.seatACustomer();
-    roomForEating.counterSeating(1);
-    roomForEating.printCustomersSeated();
+    WrapperDiningRoom wrapperDiningRoom(new DiningRoom());
+    wrapperDiningRoom.pointerToDiningRoom->seatACustomer();
+    wrapperDiningRoom.pointerToDiningRoom->counterSeating(1);
+    wrapperDiningRoom.pointerToDiningRoom->printCustomersSeated();
 
-    std::cout << "main() How many customers have been seated? " << roomForEating.amountOfSeatedCustomers << std::endl;
-    
+    std::cout << "main() How many customers have been seated? " << wrapperDiningRoom.pointerToDiningRoom->amountOfSeatedCustomers << std::endl;
+
     std::cout << "good to go!" << std::endl;
 }
