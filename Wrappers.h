@@ -44,3 +44,13 @@ struct WrapperKitchen
     Restaurant::Kitchen* pointerToKitchen = nullptr;
 };
 
+struct WrapperBank
+{
+    WrapperBank(Bank* bankptr) : pointerToBank(bankptr) {}
+    ~WrapperBank()
+    {
+        delete pointerToBank;
+    }
+
+    Bank* pointerToBank = nullptr;
+};
