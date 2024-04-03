@@ -22,3 +22,25 @@ struct WrapperKeyboard
     Synthesizer::Keyboard* pointerToKeyboard = nullptr;
 };
 
+struct WrapperRestaurant
+{
+    WrapperRestaurant(Restaurant* restptr) : pointerToRestaurant(restptr) {}
+    ~WrapperRestaurant()
+    {
+        delete pointerToRestaurant;
+    }
+
+    Restaurant* pointerToRestaurant = nullptr;
+};
+
+struct WrapperKitchen
+{
+    WrapperKitchen(Restaurant::Kitchen* kitptr) : pointerToKitchen(kitptr) {}
+    ~WrapperKitchen()
+    {
+        delete pointerToKitchen;
+    }
+
+    Restaurant::Kitchen* pointerToKitchen = nullptr;
+};
+
