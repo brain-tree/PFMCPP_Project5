@@ -66,3 +66,13 @@ struct WrapperEffectsRack
     EffectsRack* pointerToEffectsRack = nullptr;
 };
 
+struct WrapperDiningRoom
+{
+    WrapperDiningRoom(DiningRoom* drptr) : pointerToDiningRoom(drptr) {}
+    ~WrapperDiningRoom()
+    {
+        delete pointerToDiningRoom;
+    }
+
+    DiningRoom* pointerToDiningRoom = nullptr;
+};
