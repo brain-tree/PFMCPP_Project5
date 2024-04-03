@@ -54,3 +54,15 @@ struct WrapperBank
 
     Bank* pointerToBank = nullptr;
 };
+
+struct WrapperEffectsRack
+{
+    WrapperEffectsRack(EffectsRack* fxptr) : pointerToEffectsRack(fxptr) {}
+    ~WrapperEffectsRack()
+    {
+        delete pointerToEffectsRack;
+    }
+
+    EffectsRack* pointerToEffectsRack = nullptr;
+};
+
