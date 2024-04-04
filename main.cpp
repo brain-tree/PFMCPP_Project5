@@ -62,33 +62,6 @@ void Axe::aConstMemberFunction() const { }
  */
 
 
-
-
-
-
-
-/*
- copied UDT 1:
- */
-
-/*
- copied UDT 2:
- */
-
-/*
- copied UDT 3:
- */
-
-/*
- new UDT 4:
- with 2 member functions
- */
-
-/*
- new UDT 5:
- with 2 member functions
- */
-
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
@@ -151,7 +124,6 @@ int main()
 
     std::cout << "main() Order name: " << wrapperKit.pointerToKitchen->orderName << std::endl;
 
-//    Bank localBank;
     WrapperBank wrapperBank(new Bank());
     wrapperBank.pointerToBank->serviceClient();
     wrapperBank.pointerToBank->collectMoney(258.22);
