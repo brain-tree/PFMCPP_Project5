@@ -70,8 +70,6 @@ void Axe::aConstMemberFunction() const { }
 /*
  copied UDT 1:
  */
-#include <iostream>
-#include "LeakedObjectDetector.h"
 
 /*
  copied UDT 2:
@@ -91,7 +89,6 @@ void Axe::aConstMemberFunction() const { }
  with 2 member functions
  */
 
-
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
@@ -107,6 +104,14 @@ void Axe::aConstMemberFunction() const { }
  */
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
+#include "Wrappers.h"
+#include "Synthesizer.h"
+#include "Restaurant.h"
+#include "Bank.h"
+#include "EffectsRack.h"
+#include "DiningRoom.h"
+
 int main()
 {
     WrapperSynthesizer wrapperSynth(new Synthesizer());

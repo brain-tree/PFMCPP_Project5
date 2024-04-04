@@ -1,4 +1,9 @@
 #pragma once
+#include "Synthesizer.h"
+#include "Restaurant.h"
+#include "Bank.h"
+#include "EffectsRack.h"
+#include "DiningRoom.h"
 
 struct WrapperSynthesizer
 {
