@@ -1,4 +1,3 @@
-#pragma once
 #include "Synthesizer.h"
 
 Synthesizer::Synthesizer()

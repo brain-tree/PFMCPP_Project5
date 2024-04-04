@@ -1,4 +1,3 @@
-#pragma once
 #include "EffectsRack.h"
 
 EffectsRack::EffectsRack()

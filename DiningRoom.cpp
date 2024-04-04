@@ -1,4 +1,3 @@
-#pragma once
 #include "DiningRoom.h"
 
 DiningRoom::DiningRoom()

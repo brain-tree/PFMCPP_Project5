@@ -1,4 +1,3 @@
-#pragma once
 #include "Restaurant.h"
 
 Restaurant::Restaurant()
