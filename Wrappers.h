@@ -7,11 +7,8 @@
 
 struct WrapperSynthesizer
 {
-    WrapperSynthesizer(Synthesizer* synthptr) : pointerToSynthesizer(synthptr) {}
-    ~WrapperSynthesizer()
-    {
-        delete pointerToSynthesizer;
-    }
+    WrapperSynthesizer(Synthesizer* synthptr);
+    ~WrapperSynthesizer();
 
     Synthesizer* pointerToSynthesizer = nullptr;
 };
