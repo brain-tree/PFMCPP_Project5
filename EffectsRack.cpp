@@ -19,7 +19,7 @@ void EffectsRack::cueAnEffect(int p1, int p2, float p3)
     std::cout << "Effect rack is active" << std::endl;
 }
 
-void EffectsRack::chooseAnEffect(int olympicMenuDive)
+void EffectsRack::chooseAnEffect(const int& olympicMenuDive)
 {
     EffectsRack effectsRack;
     effectsRack.subModule.numberOfOscillators = 3;
@@ -27,7 +27,7 @@ void EffectsRack::chooseAnEffect(int olympicMenuDive)
     effectsRack.randomEffect.numberOfKnobs = 15;
 }
 
-void EffectsRack::printRackValue()
+void EffectsRack::printRackValue() const
 {
     std::cout << "MF Amount of audio effects processors: " << this->amountOfEffects << std::endl;
 }

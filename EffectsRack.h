@@ -12,8 +12,8 @@ struct EffectsRack
     int amountOfEffects = 10;
 
     void cueAnEffect(int parameter1, int parameter2, float parameter3);
-    void chooseAnEffect(int menuDive);
-    void printRackValue();
+    void chooseAnEffect(const int& menuDive);
+    void printRackValue() const;
 
     JUCE_LEAK_DETECTOR(EffectsRack)
 };

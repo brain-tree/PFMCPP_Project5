@@ -17,14 +17,14 @@ void DiningRoom::seatACustomer()
     foyer.orderName = "Reggie";
 }
 
-void DiningRoom::counterSeating(float whichStool)
+void DiningRoom::counterSeating(const float& whichStool)
 {
     table.nameOfIngredientsPerMenuItem = 50;
     counter.chargeMoney(whichStool);
     foyer.gallonsOfVegOil = 10;
 }
 
-void DiningRoom::printCustomersSeated()
+void DiningRoom::printCustomersSeated() const
 {
     std::cout << "MF How many customers have been seated? " << this->amountOfSeatedCustomers << std::endl;
 }
