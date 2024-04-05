@@ -24,18 +24,18 @@ struct Restaurant
 
         void fillFryerWithOil(double amountOfOil, double costOfVegOilPerGallon = 2.0, bool oilNeedsReplaced = false);
         void printOrderTicket(int orderNumber, bool hasSpecialInstructions = false);
-        double annualRevenue(double annualProfit);
-        void replaceTheOven(int newOven, int oldOven);
-        void printKitchenValue();
+        double annualRevenue(const double& annualProfit);
+        void replaceTheOven(int newOven, int oldOven) const;
+        void printKitchenValue() const;
 
         JUCE_LEAK_DETECTOR(Kitchen)
     };
 
     void makeFood(Kitchen kitchen);
     void serveDiners(Kitchen kitchen);
-    float chargeMoney(float moneyOfMeal);
-    void cleanTheKitchen(int amountOfAmmonia, int numOfSponges);
-    void printRestValue();
+    float chargeMoney(const float& moneyOfMeal);
+    void cleanTheKitchen(const int& amountOfAmmonia, const int& numOfSponges);
+    void printRestValue() const;
 
     Kitchen patronsBeingServed;
 

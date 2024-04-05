@@ -40,13 +40,13 @@ void Restaurant::Kitchen::printOrderTicket(int orderNumber, bool hasSpecialInstr
     numOfCooks = orderNumber + hasSpecialInstructions;
 }
 
-double Restaurant::Kitchen::annualRevenue(double annualProfit)
+double Restaurant::Kitchen::annualRevenue(const double& annualProfit)
 {
     std::cout << "Displaying annual profit" << std::endl;
     return annualProfit;
 }
 
-void Restaurant::Kitchen::replaceTheOven(int newPizzaOven, int oldPizzaOven)
+void Restaurant::Kitchen::replaceTheOven(int newPizzaOven, int oldPizzaOven) const
 {
     int numOfNewOvens = 2;
     int numOfOldOvens = 1;
@@ -70,12 +70,12 @@ void Restaurant::serveDiners(Kitchen kitchen)
     numberOfEmployees = kitchen.numOfCooks + kitchen.numOfDeepFryers;
 }
 
-float Restaurant::chargeMoney(float moneyOfMeal)
+float Restaurant::chargeMoney(const float& moneyOfMeal)
 {
     return moneyOfMeal;
 }
 
-void Restaurant::cleanTheKitchen(int amountOfAmmonia, int numOfSponges)
+void Restaurant::cleanTheKitchen(const int& amountOfAmmonia, const int& numOfSponges)
 {
     bool kitchenIsClean = true;
     int sponges = 0;
@@ -93,12 +93,12 @@ void Restaurant::cleanTheKitchen(int amountOfAmmonia, int numOfSponges)
     }
 }
 
-void Restaurant::printRestValue()
+void Restaurant::printRestValue() const
 {
     std::cout << "MF Amount of menu items: " << this->amountOfMenuItems << std::endl;
 }
 
-void Restaurant::Kitchen::printKitchenValue()
+void Restaurant::Kitchen::printKitchenValue() const
 {
     std::cout << "MF Order name: " << this->orderName << std::endl;
 }
