@@ -1,7 +1,4 @@
 #pragma once
-
-
-
 #include "EffectsRack.h"
 #include "DiningRoom.h"
 
