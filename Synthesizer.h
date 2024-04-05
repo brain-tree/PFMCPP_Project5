@@ -22,10 +22,10 @@ struct Synthesizer
         std::string model;
 
         void pushKey(float midiVelocity, float polyphony = 10.f, bool afterTouch = true);
-        void releaseKey(float releaseTime, bool usesADSR = true);
-        int getNumOfKeysPressed(int numOfMidiEvents);
-        void changeVelocity(int midiValue);
-        void printKeysValue();
+        void releaseKey(const float& releaseTime, const bool& usesADSR = true);
+        int getNumOfKeysPressed(int numOfMidiEvents) const;
+        void changeVelocity(const int& midiValue);
+        void printKeysValue() const;
 
         JUCE_LEAK_DETECTOR(Keyboard)
     };
@@ -33,8 +33,8 @@ struct Synthesizer
     void makeSound(Keyboard keyboard);
     void showPatchParameters();
     float changeVoltage(float amountOfVoltage, Keyboard keyboard);
-    void changeTimbre(int filterSweep, int rezSweep);
-    void printThisValue();
+    void changeTimbre(const int& filterSweep, const int& rezSweep);
+    void printThisValue() const;
 
     Keyboard eventsOnSynth;
 

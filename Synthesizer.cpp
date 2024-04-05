@@ -35,17 +35,17 @@ void Synthesizer::Keyboard::pushKey(float midiVelocityPushed, float morePolyphon
     midiVelocityEnabled = midiVelocityPushed - morePolyphony - afterTouched;
 }
 
-void Synthesizer::Keyboard::releaseKey(float releasedTime, bool usedADSR)
+void Synthesizer::Keyboard::releaseKey(const float& releasedTime, const bool& usedADSR)
 {
     midiVelocityEnabled = releasedTime - usedADSR;
 }
 
-int Synthesizer::Keyboard::getNumOfKeysPressed(int numOfMidiEvents)
+int Synthesizer::Keyboard::getNumOfKeysPressed(int numOfMidiEvents) const
 {
     return numOfMidiEvents;
 }
 
-void Synthesizer::Keyboard::changeVelocity(int midiValue)
+void Synthesizer::Keyboard::changeVelocity(const int& midiValue)
 {
     int velocityValue = 0;
     bool midiTriggered = true;
@@ -77,7 +77,7 @@ float Synthesizer::changeVoltage(float amountOfVoltage, Keyboard keyboard)
     return amountOfVoltagePerOctave = amountOfVoltage + keyboard.midiVelocityEnabled;
 }
 
-void Synthesizer::changeTimbre(int filterSweep, int rezSweep)
+void Synthesizer::changeTimbre(const int& filterSweep, const int& rezSweep)
 {
     int acidTweak = filterSweep + rezSweep;
     int acid = 0;
@@ -89,12 +89,12 @@ void Synthesizer::changeTimbre(int filterSweep, int rezSweep)
     }
 }
 
-void Synthesizer::printThisValue()
+void Synthesizer::printThisValue() const
 {
     std::cout << "MF Amount of knobs: " << this->numberOfKnobs << std::endl;
 }
 
-void Synthesizer::Keyboard::printKeysValue()
+void Synthesizer::Keyboard::printKeysValue() const
 {
     std::cout << "MF Amount of Black Keys: " << this->numOfBlackKeys << std::endl;
 }
