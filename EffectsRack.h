@@ -11,7 +11,7 @@ struct EffectsRack
     Synthesizer::Keyboard weightedKeys;
     int amountOfEffects = 10;
 
-    void cueAnEffect(int parameter1, int parameter2, float parameter3);
+    void cueAnEffect(const int& parameter1, const int& parameter2, const float& parameter3);
     void chooseAnEffect(const int& menuDive);
     void printRackValue() const;
 

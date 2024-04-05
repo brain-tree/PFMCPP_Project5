@@ -10,17 +10,17 @@ Bank::~Bank()
     std::cout << "Bank is being deconstructed!" << std::endl;
 }
 
-double Bank::collectMoney(double amountOfMoneyCollected)
+double Bank::collectMoney(const double& amountOfMoneyCollected)
 {
     return amountOfMoneyCollected;
 }
 
-void Bank::serviceClient()
+void Bank::serviceClient() const
 {
     std::cout << "Client is being served.\n";
 }
 
-float Bank::wireMoney(float amountOfMoneyWired)
+float Bank::wireMoney(const float& amountOfMoneyWired)
 {
     return amountOfMoneyWired;
 }
@@ -45,7 +45,7 @@ float Bank::convertToCanadianDollar(float dollarValue)
     return conversionValue;
 }
 
-void Bank::thisBankValue()
+void Bank::thisBankValue() const
 {
     std::cout << "MF How many guards do we have? " << this->amountOfArmedGuards << std::endl;
 }

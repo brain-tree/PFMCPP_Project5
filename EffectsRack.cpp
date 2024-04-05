@@ -10,7 +10,7 @@ EffectsRack::~EffectsRack()
     std::cout << "EffectsRack is being deconstructed" << std::endl;
 }
 
-void EffectsRack::cueAnEffect(int p1, int p2, float p3)
+void EffectsRack::cueAnEffect(const int& p1, const int& p2, const float& p3)
 {
     subModule.showPatchParameters();
     randomEffect.changeTimbre(p1, p2);

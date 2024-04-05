@@ -11,11 +11,11 @@ struct Bank
     int numOfTellers = 4;
     float amountOfAccounts = 1355.5f;
 
-    double collectMoney(double amountOfMoneyCollected);
-    void serviceClient();
-    float wireMoney(float amountOfMoneyWired);
+    double collectMoney(const double& amountOfMoneyCollected);
+    void serviceClient() const;
+    float wireMoney(const float& amountOfMoneyWired);
     float convertToCanadianDollar(float dollarValue);
-    void thisBankValue();
+    void thisBankValue() const;
 
     JUCE_LEAK_DETECTOR(Bank)
 };
