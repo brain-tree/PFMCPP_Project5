@@ -1,4 +1,7 @@
 #include "Wrappers.h"
+#include "Synthesizer.h"
+#include "Restaurant.h"
+#include "Bank.h"
 
 WrapperSynthesizer::WrapperSynthesizer(Synthesizer* synthptr) : pointerToSynthesizer(synthptr) {}
 

@@ -1,9 +1,11 @@
 #pragma once
-#include "Synthesizer.h"
-#include "Restaurant.h"
-#include "Bank.h"
+
+
+
 #include "EffectsRack.h"
 #include "DiningRoom.h"
+
+struct Synthesizer;
 
 struct WrapperSynthesizer
 {
@@ -21,6 +23,8 @@ struct WrapperKeyboard
     Synthesizer::Keyboard* pointerToKeyboard = nullptr;
 };
 
+struct Restaurant;
+
 struct WrapperRestaurant
 {
     WrapperRestaurant(Restaurant* restptr);
@@ -36,6 +40,8 @@ struct WrapperKitchen
 
     Restaurant::Kitchen* pointerToKitchen = nullptr;
 };
+
+struct Bank;
 
 struct WrapperBank
 {
